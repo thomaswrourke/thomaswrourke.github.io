@@ -87,10 +87,8 @@ function runCheckup(){
     return;
   }
   const tieOrder=[2,3,4,6,5,7,1];
-  let winner=tieOrder[0];
-  tieOrder.forEach(w=>{if(totals[w]>totals[winner])winner=w;});
   const max=Math.max(...Object.values(totals));
-  winner=tieOrder.find(w=>totals[w]===max)||winner;
+  const winner=tieOrder.find(w=>totals[w]===max)||2;
   const r=CHECKUP_RESULTS[winner];
   const links=r.actions.map(([label,id])=>'<a href="#'+id+'" onclick="routeFromConcern(\''+id+'\');return false">'+label+'</a>').join(' · ');
   out.hidden=false;
@@ -161,6 +159,12 @@ function loadWorksheet(id){
 
 function resetWorksheet(id){
   const root=getWorksheet(id);if(!root)return;
+  root.querySelectorAll('table').forEach(table=>{
+    const body=table.tBodies[0];
+    if(!body)return;
+    const keep=Math.max(1,parseInt(table.dataset.defaultRows||body.rows.length,10));
+    while(body.rows.length>keep)body.deleteRow(-1);
+  });
   worksheetFields(root).forEach(f=>{
     if(f.type==='checkbox'||f.type==='radio')f.checked=false;
     else if(f.tagName==='SELECT')f.selectedIndex=0;
@@ -219,8 +223,18 @@ function addLedgerRow(tableId){
   table.tBodies[0].appendChild(row);
 }
 
+function initializeWorksheetTables(){
+  document.querySelectorAll('[data-print-target] table[id]').forEach(table=>{
+    const body=table.tBodies[0];
+    if(body&&!table.dataset.defaultRows)table.dataset.defaultRows=String(body.rows.length);
+  });
+}
+
 function restoreSavedWorksheets(){
   document.querySelectorAll('[data-print-target][id]').forEach(root=>loadWorksheet(root.id));
 }
 
-document.addEventListener('DOMContentLoaded',restoreSavedWorksheets);
+document.addEventListener('DOMContentLoaded',()=>{
+  initializeWorksheetTables();
+  restoreSavedWorksheets();
+});
