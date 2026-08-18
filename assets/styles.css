@@ -70,6 +70,7 @@ section{padding:78px 0}
 .route-card strong{display:block;font-size:19px;line-height:1.2;margin-bottom:8px}
 .route-card span{font:14px/1.45 Arial,sans-serif;color:var(--muted)}
 .number-badge{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font:700 13px/1 Arial,sans-serif;margin-bottom:12px}
+.route-card .number-badge{color:#fff;font:700 13px/1 Arial,sans-serif}
 .privacy-note{padding:18px 20px;border:1px solid #b9cbc0;background:var(--forest-soft);color:#20372f;border-radius:14px}
 .privacy-note strong{color:var(--forest)}
 .toolpage{padding:72px 0 26px}
@@ -103,12 +104,12 @@ section{padding:78px 0}
 .checkup-result p{margin:0 0 16px}
 .checkup-result a{color:#fff;text-decoration-thickness:2px;text-underline-offset:3px}
 .worksheet{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(24px,4vw,42px);margin:28px 0;box-shadow:0 9px 26px rgba(36,28,20,.04);scroll-margin-top:92px}
+.worksheet h3{font-size:clamp(26px,3vw,36px)}
 .worksheet-header{max-width:800px;margin-bottom:22px}
 .worksheet-header p{color:#4c4841}
 .worksheet-controls{display:flex;flex-wrap:wrap;gap:9px;margin:22px 0 4px;padding-top:18px;border-top:1px dashed #c9bfb0}
 .worksheet-footer{margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font:12px/1.5 Arial,sans-serif;color:var(--muted)}
 .print-only{display:none}
-.screen-only{display:block}
 @media(max-width:980px){.route-grid{grid-template-columns:repeat(2,1fr)}.toolgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:800px){.navlinks{display:none}.grid2,.toolgrid,.formgrid{grid-template-columns:1fr}.hero{padding:72px 0 58px}.wrap{width:min(var(--max),calc(100% - 28px))}.checkup-question{grid-template-columns:1fr;gap:8px}.route-grid{grid-template-columns:1fr}.route-card{min-height:auto}.worksheet{border-radius:16px;padding:22px 18px}.btn{min-height:44px}}
 @page{size:Letter;margin:.55in}
@@ -118,11 +119,17 @@ section{padding:78px 0}
   body.printing-worksheet [data-print-target].is-printing,
   body.printing-worksheet [data-print-target].is-printing *{visibility:visible!important}
   body.printing-worksheet [data-print-target].is-printing{position:absolute;left:0;top:0;width:100%;max-width:none;background:#fff!important;color:#111!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important}
-  body.printing-worksheet [data-print-target].is-printing .tablewrap{overflow:visible}
+  body.printing-worksheet [data-print-target].is-printing .tablewrap{overflow:visible!important}
   body.printing-worksheet [data-print-target].is-printing .result{background:#fff!important;color:#111!important;border:1px solid #777}
   .screen-only,.nav,.footer,.actions,.amazon-cta,.worksheet-controls{display:none!important}
   .print-only{display:block!important}
-  .worksheet,.card,.tool,.prompt,.datatable{break-inside:avoid}
+  .worksheet,.card,.tool,.prompt{break-inside:avoid}
+  .datatable{table-layout:fixed;width:100%;font-size:8.5pt}
+  .datatable th,.datatable td{padding:4px;word-break:break-word;overflow-wrap:anywhere}
+  .datatable input,.datatable textarea,.datatable select{min-width:0!important;width:100%!important;font-size:8pt!important;padding:2px!important}
+  .datatable textarea{min-height:42px!important}
   .field input,.field textarea,.field select,.datatable input,.datatable textarea,.datatable select{border:1px solid #aaa!important;background:#fff!important;color:#111!important}
+  .worksheet h3{font-size:20pt}
+  .worksheet p{orphans:3;widows:3}
   .worksheet-footer{color:#444!important}
 }
